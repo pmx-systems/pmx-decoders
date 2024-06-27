@@ -1,2 +1,3 @@
-# pmx-decoders
-LoRaWAN Payload Decoders for PMX Devices
+# PMX Systems AG LoRaWAN Payload Decoders
+
+
