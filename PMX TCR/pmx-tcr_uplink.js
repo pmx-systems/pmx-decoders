@@ -102,7 +102,7 @@ const ConfigDownlinkCommands = [
     LR_CF_CMD_RESTART = 0xee            /** ee Restart device with new settings */
 ];
 
-function device_id_v2_decoder(bytes, port) 
+function d2_decoder(bytes, port) 
 {
     var obj = {};
     obj.typestr = DeviceTypes[bytes[1]];                                                // 00: TCR-LS, 01: TCR-LSS , ...
@@ -114,7 +114,7 @@ function device_id_v2_decoder(bytes, port)
 }
 
  
-function counter_v2_decoder(bytes, port) 
+function a2_decoder(bytes, port) 
 {
     var obj = {};
 
@@ -172,7 +172,7 @@ function counter_v2_decoder(bytes, port)
     return obj;
 }
 
-function config_v2_decoder(bytes, port) {
+function c2_decoder(bytes, port) {
     var obj = {};
 
     // 8 Bit values
@@ -209,20 +209,20 @@ function decodeUplink(input) {
     // it's a Device ID Payload V2 (PMX Firmware for TCR)
     if (port == 190 && bytes[0] == 0xd2) {
 
-        obj = device_id_v2_decoder(bytes, port);
+        obj = d2_decoder(bytes, port);
     }
 
     // it's a Counter Payload V2 (PMX Firmware for TCR)
     if (port >= 13 && port <= 17 && bytes[0] == 0xa2) {
 
-        obj = counter_v2_decoder(bytes, port); 
+        obj = a2_decoder(bytes, port); 
 
     }
 
     // it's a Config Payload Response (PMX Firmware for TCR)
     if (port == 1 && bytes[0] == 0xc2) {
 
-        obj = counter_v2_decoder_legacy(bytes, port);
+        obj = c2_decoder(bytes, port);
     }
 
     return {

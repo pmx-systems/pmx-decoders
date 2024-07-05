@@ -46,7 +46,7 @@ const SpeedClassTypes = [
 
 // Array of all available config keys (since JavaScript has no enum)
 // Use this array to have a key instead of just an index number
-const ConfigDownlinkCommands = [
+const ConfigKeys = [
 
     // 0 Totals
     LR_CF_CMD_CAT0_ENABLED = 0x01,    /** Enable category */
@@ -105,7 +105,7 @@ const ConfigDownlinkCommands = [
     LR_CF_CMD_RESTART = 0xee            /** ee Restart device with new settings */
 ];
 
-function device_id_v2_decoder(bytes, port) 
+function d2_decoder(bytes, port) 
 {
     var obj = {};
     obj.typestr = DeviceTypes[bytes[1]];                                                // 00: TCR-LS, 01: TCR-LSS , ...
@@ -120,7 +120,7 @@ function device_id_v2_decoder(bytes, port)
  * Use this counter decoder if you updated from a Parametric TCR firmware
  * and not wanting to rewrite your application 
  */
-function counter_v2_decoder_in_the_former_parametric_style(bytes, port) 
+function a2_decoder_in_the_former_parametric_style(bytes, port) 
 {
     var obj = {};
 
@@ -175,7 +175,7 @@ function counter_v2_decoder_in_the_former_parametric_style(bytes, port)
     return obj;
 }
 
-function config_v2_decoder(bytes, port) {
+function c2_decoder(bytes, port) {
     var obj = {};
 
     // 8 Bit values
@@ -212,20 +212,20 @@ function decodeUplink(input) {
     // it's a Device ID Payload V2 (PMX Firmware for TCR)
     if (port == 190 && bytes[0] == 0xd2) {
 
-        obj = device_id_v2_decoder(bytes, port);
+        obj = d2_decoder(bytes, port);
     }
 
     // it's a Counter Payload V2 (PMX Firmware for TCR)
     if (port >= 13 && port <= 17 && bytes[0] == 0xa2) {
 
-        obj = counter_v2_decoder_in_the_former_parametric_style(bytes, port); 
+        obj = a2_decoder_in_the_former_parametric_style(bytes, port); 
 
     }
 
     // it's a Config Payload Response (PMX Firmware for TCR)
     if (port == 1 && bytes[0] == 0xc2) {
 
-        obj = counter_v2_decoder_legacy(bytes, port);
+        obj = c2_decoder(bytes, port);
     }
 
     return {
