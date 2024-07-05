@@ -43,7 +43,7 @@ const SpeedClassTypes = [
 
 // Array of all available config keys (since JavaScript has no enum)
 // Use this array to have a key instead of just an index number
-const ConfigDownlinkCommands = [
+const ConfigKeys = [
 
     // 0 Totals
     LR_CF_CMD_CAT0_ENABLED = 0x01,    /** Enable category */
