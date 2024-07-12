@@ -1,4 +1,4 @@
-# TCR Payload Decoders
+# PMX Firmware for TCR Payload Decoders
 
 ## PMX Payload Decoder (pmx-tcr_uplink.js)
 This is the standard payload decoder that can be selected in the TTN Console.
