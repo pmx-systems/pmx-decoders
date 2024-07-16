@@ -120,7 +120,7 @@ function a2_decoder(bytes, port)
 
     if (port == 13) // Totals Counter
     {
-        obj.cat0_hh = bytes[1];                             // Measure Interval End Timestamp, Hours (00-24)
+        obj.cat0_time = bytes[1];                           // Measure Interval End Timestamp
         obj.cat0_mm = bytes[2];                             // Measure Interval End Timestamp, Minutes (00-59)
         obj.cat0_ltr_cnt = (bytes[3] << 8) | (bytes[4]);    // Left-to-Right (LTR) Counter Value (0-65535)
         obj.cat0_ltr_spd = bytes[5];                        // Left-to-Right (LTR) average speed of all objects counted in this interval [km/h]
