@@ -109,7 +109,7 @@ function d2_decoder(bytes, port)
     obj.fu_level = FeatureLevel[bytes[2]];                                            // 00: BASIC, 01: ADVANCED , ...
     obj.speedclass = SpeedClassTypes[bytes[3]];                                      // 00: Speedclass, 01: LS , 02: HS
     obj.fw_version = (bytes[4] & 0xf0) / 0x10 + "." + (bytes[4] & 0x0f) + "." + bytes[5];  // Firmware Major Version
-    obj.sbx_fw = (bytes[6] & 0xf0) / 0x10 + "." + (bytes[6] & 0x0f) + "." + bytes[7];  // SBX Solar Charger Firmware Version     
+    obj.sbx_version = (bytes[6] & 0xf0) / 0x10 + "." + (bytes[6] & 0x0f) + "." + bytes[7];  // SBX Solar Charger Firmware Version     
     return obj;
 }
 
