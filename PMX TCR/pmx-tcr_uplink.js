@@ -1,5 +1,5 @@
 /**
- * PMX TCR Payload Uplink Decoders   
+ * PMX TCR Payload    
  * 
  * THIS SOFTWARE IS PROVIDED BY PMX SYSTEMS AG AND ITS CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, 
  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
@@ -27,14 +27,14 @@ const DeviceTypes = [
     "TCR-SLE",        /* 13 Solar powered, LoRaWAN, External Antenna */
 ];
 
-// Array of speed available classes  
+// Function levels 
 const FeatureLevel = [
     "BASIC",          /* 0 BASIC Features enabled (no licence installed) */
     "ADVANCED",       /* 1 ADVANCED Features enabled   */
     "PRO"             /* 2 PRO Features enabled  */
 ];
 
-// Array of speed available classes  
+// Speed classes  
 const SpeedClassTypes = [
     "P",           /* 0 Speed class for people counting (very low speed) */
     "LS",          /* 1 Low speed traffic counting */
@@ -43,67 +43,68 @@ const SpeedClassTypes = [
 
 // Array of all available config keys (since JavaScript has no enum)
 // Use this array to have a key instead of just an index number
-const ConfigKeys = [
+const ConfigKeys = {
 
     // 0 Totals
-    LR_CF_CMD_CAT0_ENABLED = 0x01,    /** Enable category */
-    LR_CF_CMD_CAT0_MIN_SIZE = 0x02,   /** Change min object size of category */
-    LR_CF_CMD_CAT0_MAX_SIZE = 0x03,   /** Overwrite max object size of category */
-    LR_CF_CMD_CAT0_MIN_SPEED = 0x04,  /** Overwrite min object speed of category */
-    LR_CF_CMD_CAT0_MAX_SPEED = 0x05,  /** Overwrite max object speed of category */
+    LR_CF_CMD_CAT0_ENABLED: 0x01,    /** Enable category */
+    LR_CF_CMD_CAT0_MIN_SIZE: 0x02,   /** Change min object size of category */
+    LR_CF_CMD_CAT0_MAX_SIZE: 0x03,   /** Overwrite max object size of category */
+    LR_CF_CMD_CAT0_MIN_SPEED: 0x04,  /** Overwrite min object speed of category */
+    LR_CF_CMD_CAT0_MAX_SPEED: 0x05,  /** Overwrite max object speed of category */
 
     // 1
-    LR_CF_CMD_CAT1_ENABLED = 0x11,    /** Enable category */
-    LR_CF_CMD_CAT1_MIN_SIZE = 0x12,   /** Overwrite min object size of category */
-    LR_CF_CMD_CAT1_MAX_SIZE = 0x13,   /** Overwrite max object size of category */
-    LR_CF_CMD_CAT1_MIN_SPEED = 0x14,  /** Overwrite min object speed of category */
-    LR_CF_CMD_CAT1_MAX_SPEED = 0x15,  /** Overwrite max object speed of category */
+    LR_CF_CMD_CAT1_ENABLED: 0x11,    /** Enable category */
+    LR_CF_CMD_CAT1_MIN_SIZE: 0x12,   /** Overwrite min object size of category */
+    LR_CF_CMD_CAT1_MAX_SIZE: 0x13,   /** Overwrite max object size of category */
+    LR_CF_CMD_CAT1_MIN_SPEED: 0x14,  /** Overwrite min object speed of category */
+    LR_CF_CMD_CAT1_MAX_SPEED: 0x15,  /** Overwrite max object speed of category */
 
     // 2
-    LR_CF_CMD_CAT2_ENABLED = 0x21,    /** Enable category */
-    LR_CF_CMD_CAT2_MIN_SIZE = 0x22,   /** Overwrite min object size of category */
-    LR_CF_CMD_CAT2_MAX_SIZE = 0x23,   /** Overwrite max object size of category */
-    LR_CF_CMD_CAT2_MIN_SPEED = 0x24,  /** Overwrite min object speed of category */
-    LR_CF_CMD_CAT2_MAX_SPEED = 0x25,  /** Overwrite max object speed of category */
+    LR_CF_CMD_CAT2_ENABLED: 0x21,    /** Enable category */
+    LR_CF_CMD_CAT2_MIN_SIZE: 0x22,   /** Overwrite min object size of category */
+    LR_CF_CMD_CAT2_MAX_SIZE: 0x23,   /** Overwrite max object size of category */
+    LR_CF_CMD_CAT2_MIN_SPEED: 0x24,  /** Overwrite min object speed of category */
+    LR_CF_CMD_CAT2_MAX_SPEED: 0x25,  /** Overwrite max object speed of category */
 
     // 3
-    LR_CF_CMD_CAT3_ENABLED = 0x31,    /** Enable category */
-    LR_CF_CMD_CAT3_MIN_SIZE = 0x32,   /** Overwrite min object size of category */
-    LR_CF_CMD_CAT3_MAX_SIZE = 0x33,   /** Overwrite max object size of category */
-    LR_CF_CMD_CAT3_MIN_SPEED = 0x34,  /** Overwrite min object speed of category */
-    LR_CF_CMD_CAT3_MAX_SPEED = 0x35,  /** Overwrite max object speed of category */
+    LR_CF_CMD_CAT3_ENABLED: 0x31,    /** Enable category */
+    LR_CF_CMD_CAT3_MIN_SIZE: 0x32,   /** Overwrite min object size of category */
+    LR_CF_CMD_CAT3_MAX_SIZE: 0x33,   /** Overwrite max object size of category */
+    LR_CF_CMD_CAT3_MIN_SPEED: 0x34,  /** Overwrite min object speed of category */
+    LR_CF_CMD_CAT3_MAX_SPEED: 0x35,  /** Overwrite max object speed of category */
 
     // 4
-    LR_CF_CMD_CAT4_ENABLED = 0x41,    /** Enable category */
-    LR_CF_CMD_CAT4_MIN_SIZE = 0x42,   /** Overwrite min object size of category */
-    LR_CF_CMD_CAT4_MAX_SIZE = 0x43,   /** Overwrite max object size of category */
-    LR_CF_CMD_CAT4_MIN_SPEED = 0x44,  /** Overwrite min object speed of category */
-    LR_CF_CMD_CAT4_MAX_SPEED = 0x45,  /** Overwrite max object speed of category */
+    LR_CF_CMD_CAT4_ENABLED: 0x41,    /** Enable category */
+    LR_CF_CMD_CAT4_MIN_SIZE: 0x42,   /** Overwrite min object size of category */
+    LR_CF_CMD_CAT4_MAX_SIZE: 0x43,   /** Overwrite max object size of category */
+    LR_CF_CMD_CAT4_MIN_SPEED: 0x44,  /** Overwrite min object speed of category */
+    LR_CF_CMD_CAT4_MAX_SPEED: 0x45,  /** Overwrite max object speed of category */
 
     /* Device Settings */
-    LR_CF_CMD_LIC_KEY = 0x51,        /**  Licence Key RW */
-    LR_CF_CMD_FU_LEVEL = 0x52,       /**  Feauture Level RO*/
-    LR_CF_CMD_SPEED_CLASS = 0x53,    /**  Feauture Level RO*/
-    LR_CF_CMD_MEAS_INTERVAL = 0x54,  /**  Meas Interval RW */
+    LR_CF_CMD_LIC_KEY: 0x51,        /**  Licence Key RW */
+    LR_CF_CMD_FU_LEVEL: 0x52,       /**  Feauture Level RO*/
+    LR_CF_CMD_SPEED_CLASS: 0x53,    /**  Feauture Level RO*/
+    LR_CF_CMD_MEAS_INTERVAL: 0x54,  /**  Meas Interval RW */
 
     /* Radar Settings */
-    LR_CF_CMD_RADAR_ENABLED = 0x61,  /** Switch radar module on / off */
-    LR_CF_CMD_RADAR_CHANNEL = 0x62,  /** Choose Radar Channel: 1, 2 */
-    LR_CF_CMD_RADAR_SENS = 0x63,     /** Radar Sensitivity Level [%]*/
-    LR_CF_CMD_RADAR_AUTOSENS = 0x64, /** Enable Autosens, 0 = off , 1 = on */
+    LR_CF_CMD_RADAR_ENABLED: 0x61,  /** Switch radar module on / off */
+    LR_CF_CMD_RADAR_CHANNEL: 0x62,  /** Choose Radar Channel: 1, 2 */
+    LR_CF_CMD_RADAR_SENS: 0x63,     /** Radar Sensitivity Level [%]*/
+    LR_CF_CMD_RADAR_AUTOSENS: 0x64, /** Enable Autosens, 0 = off , 1 = on */
 
     /* LoRaWAN Settings */
-    LR_CF_CMD_LORA_UL_CONFIRMED = 0x71,  /** Set confirmed uplinks mode*/
+    LR_CF_CMD_LORA_UL_CONFIRMED: 0x71,  /** Set confirmed uplinks mode*/
 
 
-    LR_CF_CMD_CLEAR = 0xcc,       /** cf starts the configuration uplink sequence */
-    LR_CF_CMD_CONFIG_SEQ = 0xcf,       /** cf starts the configuration uplink sequence */
-    LR_CF_CMD_DEFAULTS = 0xdf,         /** df set factory defaults (use ee for saving to ROM) */
-    LR_CF_CMD_RESTART = 0xee            /** ee Restart device with new settings */
-];
+    LR_CF_CMD_CLEAR: 0xcc,       /** cf starts the configuration uplink sequence */
+    LR_CF_CMD_CONFIG_SEQ: 0xcf,       /** cf starts the configuration uplink sequence */
+    LR_CF_CMD_DEFAULTS: 0xdf,         /** df set factory defaults (use ee for saving to ROM) */
+    LR_CF_CMD_RESTART: 0xee            /** ee Restart device with new settings */
+};
 
-function d2_decoder(bytes, port) 
-{
+
+
+function d2_decoder(bytes, port) {
     var obj = {};
     obj.typestr = DeviceTypes[bytes[1]];                                                // 00: TCR-LS, 01: TCR-LSS , ...
     obj.fu_level = FeatureLevel[bytes[2]];                                            // 00: BASIC, 01: ADVANCED , ...
@@ -113,15 +114,13 @@ function d2_decoder(bytes, port)
     return obj;
 }
 
- 
-function a2_decoder(bytes, port) 
-{
+
+function a2_decoder(bytes, port) {
     var obj = {};
 
     if (port == 13) // Totals Counter
     {
-        obj.cat0_time = bytes[1];                           // Measure Interval End Timestamp
-        obj.cat0_mm = bytes[2];                             // Measure Interval End Timestamp, Minutes (00-59)
+        obj.cat0_time = bytes[1] * 100 + bytes[2];            // Measure Interval End Timestamp (MilitaryTime format)
         obj.cat0_ltr_cnt = (bytes[3] << 8) | (bytes[4]);    // Left-to-Right (LTR) Counter Value (0-65535)
         obj.cat0_ltr_spd = bytes[5];                        // Left-to-Right (LTR) average speed of all objects counted in this interval [km/h]
         obj.cat0_rtl_cnt = (bytes[6] << 8) | (bytes[7]);    // Right-to-Left (RTL) Counter Value (0-65535)
@@ -130,8 +129,7 @@ function a2_decoder(bytes, port)
 
     if (port == 14) // Category 1 Counter
     {
-        obj.cat1_hh = bytes[1];                             // Measure Interval End Timestamp, Hours (00-24)
-        obj.cat1_mm = bytes[2];                             // Measure Interval End Timestamp, Minutes (00-59)
+        obj.cat1_time = bytes[1] * 100 + bytes[2];            // Measure Interval End Timestamp (MilitaryTime format)
         obj.cat1_ltr_cnt = (bytes[3] << 8) | (bytes[4]);    // Left-to-Right (LTR) Counter Value (0-65535)
         obj.cat1_ltr_spd = bytes[5];                        // Left-to-Right (LTR) average speed of all objects counted in this interval [km/h]
         obj.cat1_rtl_cnt = (bytes[6] << 8) | (bytes[7]);    // Right-to-Left (RTL) Counter Value (0-65535)
@@ -140,8 +138,7 @@ function a2_decoder(bytes, port)
 
     if (port == 15) // Category 2 Counter
     {
-        obj.cat2_hh = bytes[1];                             // Measure Interval End Timestamp, Hours (00-24)
-        obj.cat2_mm = bytes[2];                             // Measure Interval End Timestamp, Minutes (00-59)
+        obj.cat2_time = bytes[1] * 100 + bytes[2];            // Measure Interval End Timestamp (MilitaryTime format)
         obj.cat2_ltr_cnt = (bytes[3] << 8) | (bytes[4]);    // Left-to-Right (LTR) Counter Value (0-65535)
         obj.cat2_ltr_spd = bytes[5];                        // Left-to-Right (LTR) average speed of all objects counted in this interval [km/h]
         obj.cat2_rtl_cnt = (bytes[6] << 8) | (bytes[7]);    // Right-to-Left (RTL) Counter Value (0-65535)
@@ -150,8 +147,7 @@ function a2_decoder(bytes, port)
 
     if (port == 16) // Category 3 Counter
     {
-        obj.cat3_hh = bytes[1];                             // Measure Interval End Timestamp, Hours (00-24)
-        obj.cat3_mm = bytes[2];                             // Measure Interval End Timestamp, Minutes (00-59)
+        obj.cat3_time = bytes[1] * 100 + bytes[2];            // Measure Interval End Timestamp (MilitaryTime format)
         obj.cat3_ltr_cnt = (bytes[3] << 8) | (bytes[4]);    // Left-to-Right (LTR) Counter Value (0-65535)
         obj.cat3_ltr_spd = bytes[5];                        // Left-to-Right (LTR) average speed of all objects counted in this interval [km/h]
         obj.cat3_rtl_cnt = (bytes[6] << 8) | (bytes[7]);    // Right-to-Left (RTL) Counter Value (0-65535)
@@ -160,15 +156,14 @@ function a2_decoder(bytes, port)
 
     if (port == 17) // Category 4 Counter
     {
-        obj.cat4_hh = bytes[1];                             // Measure Interval End Timestamp, Hours (00-24)
-        obj.cat4_mm = bytes[2];                             // Measure Interval End Timestamp, Minutes (00-59)
+        obj.cat4_time = bytes[1] * 100 + bytes[2];            // Measure Interval End Timestamp (MilitaryTime format)
         obj.cat4_ltr_cnt = (bytes[3] << 8) | (bytes[4]);    // Left-to-Right (LTR) Counter Value (0-65535)
         obj.cat4_ltr_spd = bytes[5];                        // Left-to-Right (LTR) average speed of all objects counted in this interval [km/h]
         obj.cat4_rtl_cnt = (bytes[6] << 8) | (bytes[7]);    // Right-to-Left (RTL) Counter Value (0-65535)
         obj.cat4_rtl_spd = bytes[8];                        // Right-to-Left (RTL) average speed of all objects counted in this interval  [km/h]     
     }
 
-    obj.volts = bytes[9];                                   // Power supply voltage. Divide by 10 to get volts.                             
+    obj.volts = bytes[9] / 10;                              // Power supply voltage. Divide by 10 to get volts.                             
     return obj;
 }
 
