@@ -166,15 +166,16 @@ function a2_decoder(bytes, port) {
 
 function c2_decoder(bytes, port) {
     var obj = {};
-
+    var CNAME = Object.keys(ConfigKeys).find(name => ConfigKeys[name] === bytes[1])
+    
     // 8 Bit values
     if (bytes.length == 3) {
-        obj[ConfigKeys[bytes[1]]] = bytes[2];
+        obj[CNAME] = bytes[2];
     }
 
     // 16 Bit values
     if (bytes.length >= 4) {
-        obj[ConfigKeys[bytes[1]]] = (bytes[2] << 8) | (bytes[3]);
+        obj[CNAME] = (bytes[2] << 8) | (bytes[3]);
     }
     return obj;
 }
